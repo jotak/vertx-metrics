@@ -168,7 +168,7 @@
  *
  * |Counter
  * |{@code vertx.net.server.<host>:<port>.bytesSent}
- * |Total number of bytes sent to the Net Server listening on the {@code <host>:<port>} address.
+ * |Total number of bytes sent by the Net Server listening on the {@code <host>:<port>} address.
  *
  * |Counter
  * |{@code vertx.net.server.<host>:<port>.errorCount}
@@ -194,26 +194,26 @@
  *
  * |Counter
  * |{@code vertx.http.server.<host>:<port>.bytesSent}
- * |Total number of bytes sent to the HTTP Server listening on the {@code <host>:<port>} address.
+ * |Total number of bytes sent by the HTTP Server listening on the {@code <host>:<port>} address.
  *
  * |Counter
  * |{@code vertx.http.server.<host>:<port>.errorCount}
  * |Total number of errors.
  *
  * |Gauge
- * |{@code vertx.http.client.<host>:<port>.requests}
+ * |{@code vertx.http.server.<host>:<port>.requests}
  * |Number of requests being processed.
  *
  * |Counter
- * |{@code vertx.http.client.<host>:<port>.requestCount}
+ * |{@code vertx.http.server.<host>:<port>.requestCount}
  * |Total number of requests processed.
  *
  * |Counter
- * |{@code vertx.http.client.<host>:<port>.processingTime}
+ * |{@code vertx.http.server.<host>:<port>.processingTime}
  * |Cumulated request processing time.
  *
  * |Gauge
- * |{@code vertx.http.client.<host>:<port>.wsConnections}
+ * |{@code vertx.http.server.<host>:<port>.wsConnections}
  * |Number of websockets currently opened.
  *
  * |===
@@ -341,7 +341,7 @@
  * |Current number of elements waiting for a resource.
  *
  * |Counter
- * |{@code vertx.pool.<type>.<name>.queueCount}
+ * |{@code vertx.pool.<type>.<name>.queuedCount}
  * |Total number of elements queued.
  *
  * |Counter
@@ -361,7 +361,7 @@
  * |Maximum pool size, only present if it could be determined.
  *
  * |Gauge
- * |{@code vertx.pool.<type>.<name>.inUse}
+ * |{@code vertx.pool.<type>.<name>.poolRatio}
  * |Pool usage ratio, only present if maximum pool size could be determined.
  *
  * |===

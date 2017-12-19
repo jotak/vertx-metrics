@@ -5,7 +5,7 @@ image::https://vertx.ci.cloudbees.com/buildStatus/icon?job=vert.x3-hawkular-metr
 
 Vert.x-Metrics-reporters-influxdb contains metrics collection and reporting to InfluxDb.
 
-Hawkular is an http://www.influxdb.org[open source monitoring and management solution].
+http://www.influxdb.org[InfluxDb] is a time series database.
 
 The http://vertx.io/docs/vertx-core/java/index.html#_metrics_spi[Vert.x Metrics SPI] allows implementers to
 capture events from Vert.x in order to gather metrics.
