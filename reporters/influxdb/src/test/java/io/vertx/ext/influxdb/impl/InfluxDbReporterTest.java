@@ -41,9 +41,8 @@ public class InfluxDbReporterTest {
     vertx = Vertx.vertx(new VertxOptions().setMetricsOptions(
       new VertxInfluxDbOptions().setAuthenticationOptions(
         new AuthenticationOptions().setUsername("xx").setSecret("yy").setEnabled(true))
-        .setEnabled(true).setPrefix("vert.x"))
+        .setEnabled(true))
     );
-
   }
 
   @After
@@ -62,11 +61,8 @@ public class InfluxDbReporterTest {
       .setPort(8086))
       .requestHandler(req -> {
         req.exceptionHandler(t -> System.out.println("An exception occured handling request: " + t));
-
         Buffer fullRequestBody = Buffer.buffer();
-        req.handler(body -> {
-          fullRequestBody.appendBuffer(body);
-        });
+        req.handler(fullRequestBody::appendBuffer);
         req.endHandler(h -> {
           context.assertTrue(fullRequestBody.toString().contains("eventbus.publishedRemoteMessages=0i"));
           req.response().setStatusCode(200).end();

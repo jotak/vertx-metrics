@@ -30,15 +30,6 @@ import java.util.Set;
  */
 @DataObject(generateConverter = true, inheritConverter = true)
 public abstract class MetricsOptionsBase extends MetricsOptions {
-  /**
-   * Default value for metric collection interval (in seconds) = 1.
-   */
-  public static final int DEFAULT_SCHEDULE = 1;
-
-  /**
-   * The default metric name prefix (empty).
-   */
-  public static final String DEFAULT_PREFIX = "";
 
   /**
    * Default event bus address where applications can send business-related metrics. The metrics are sent as JSON
@@ -51,15 +42,11 @@ public abstract class MetricsOptionsBase extends MetricsOptions {
    */
   public static final boolean DEFAULT_METRICS_BRIDGE_ENABLED = false;
 
-  private int schedule;
-  private String prefix;
   private boolean metricsBridgeEnabled;
   private String metricsBridgeAddress;
   private Set<MetricsType> disabledMetricsTypes;
 
   public MetricsOptionsBase() {
-    schedule = DEFAULT_SCHEDULE;
-    prefix = DEFAULT_PREFIX;
     metricsBridgeEnabled = DEFAULT_METRICS_BRIDGE_ENABLED;
     metricsBridgeAddress = DEFAULT_METRICS_BRIDGE_ADDRESS;
     disabledMetricsTypes = EnumSet.noneOf(MetricsType.class);
@@ -67,8 +54,6 @@ public abstract class MetricsOptionsBase extends MetricsOptions {
 
   public MetricsOptionsBase(MetricsOptionsBase other) {
     super(other);
-    schedule = other.schedule;
-    prefix = other.prefix;
     metricsBridgeAddress = other.metricsBridgeAddress;
     metricsBridgeEnabled = other.metricsBridgeEnabled;
     disabledMetricsTypes = other.disabledMetricsTypes != null ? EnumSet.copyOf(other.disabledMetricsTypes) : EnumSet.noneOf(MetricsType.class);
@@ -77,37 +62,6 @@ public abstract class MetricsOptionsBase extends MetricsOptions {
   public MetricsOptionsBase(JsonObject json) {
     this();
     MetricsOptionsBaseConverter.fromJson(json, this);
-  }
-
-  /**
-   * @return the metric collection interval (in seconds)
-   */
-  public int getSchedule() {
-    return schedule;
-  }
-
-  /**
-   * Set the metric collection interval (in seconds). Defaults to {@code 1}.
-   */
-  public MetricsOptionsBase setSchedule(int schedule) {
-    this.schedule = schedule;
-    return this;
-  }
-
-  /**
-   * @return the metric name prefix
-   */
-  public String getPrefix() {
-    return prefix;
-  }
-
-  /**
-   * Set the metric name prefix. Metric names are not prefixed by default. Prefixing metric names is required to
-   * distinguish data sent by different Vert.x instances.
-   */
-  public MetricsOptionsBase setPrefix(String prefix) {
-    this.prefix = prefix;
-    return this;
   }
 
   /**

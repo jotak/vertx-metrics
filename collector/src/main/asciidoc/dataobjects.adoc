@@ -87,14 +87,5 @@ Sets the metric bridge address on which the application is sending the custom me
 +++
 Sets whether or not the metrics bridge should be enabled. The metrics bridge is disabled by default.
 +++
-|[[prefix]]`prefix`|`String`|
-+++
-Set the metric name prefix. Metric names are not prefixed by default. Prefixing metric names is required to
- distinguish data sent by different Vert.x instances.
-+++
-|[[schedule]]`schedule`|`Number (int)`|
-+++
-Set the metric collection interval (in seconds). Defaults to <code>1</code>.
-+++
 |===
 

@@ -44,12 +44,6 @@ public class MetricsOptionsBaseConverter {
     if (json.getValue("metricsBridgeEnabled") instanceof Boolean) {
       obj.setMetricsBridgeEnabled((Boolean)json.getValue("metricsBridgeEnabled"));
     }
-    if (json.getValue("prefix") instanceof String) {
-      obj.setPrefix((String)json.getValue("prefix"));
-    }
-    if (json.getValue("schedule") instanceof Number) {
-      obj.setSchedule(((Number)json.getValue("schedule")).intValue());
-    }
   }
 
   public static void toJson(MetricsOptionsBase obj, JsonObject json) {
@@ -63,9 +57,5 @@ public class MetricsOptionsBaseConverter {
       json.put("metricsBridgeAddress", obj.getMetricsBridgeAddress());
     }
     json.put("metricsBridgeEnabled", obj.isMetricsBridgeEnabled());
-    if (obj.getPrefix() != null) {
-      json.put("prefix", obj.getPrefix());
-    }
-    json.put("schedule", obj.getSchedule());
   }
 }

@@ -20,14 +20,14 @@ import io.vertx.core.Context;
 import io.vertx.core.Vertx;
 import io.vertx.ext.influxdb.VertxInfluxDbOptions;
 import io.vertx.ext.metrics.collector.Reporter;
-import io.vertx.ext.metrics.collector.impl.VertxMetricsBase;
+import io.vertx.ext.metrics.collector.impl.BatchingVertxMetrics;
 
 /**
  * Metrics SPI implementation for InfluxDb.
  *
  * @author Dan Kristensen
  */
-public class InfluxDbVertxMetrics extends VertxMetricsBase<VertxInfluxDbOptions> {
+public class InfluxDbVertxMetrics extends BatchingVertxMetrics<VertxInfluxDbOptions> {
 
   /**
    * @param vertx   the {@link Vertx} managed instance

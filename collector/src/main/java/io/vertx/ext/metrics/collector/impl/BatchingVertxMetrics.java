@@ -37,6 +37,7 @@ import io.vertx.core.spi.metrics.HttpClientMetrics;
 import io.vertx.core.spi.metrics.HttpServerMetrics;
 import io.vertx.core.spi.metrics.PoolMetrics;
 import io.vertx.core.spi.metrics.TCPMetrics;
+import io.vertx.ext.metrics.collector.BatchingReporterOptions;
 import io.vertx.ext.metrics.collector.MetricsOptionsBase;
 import io.vertx.ext.metrics.collector.MetricsType;
 import io.vertx.ext.metrics.collector.Reporter;
@@ -53,7 +54,7 @@ import static io.vertx.ext.metrics.collector.MetricsType.*;
  *
  * @author Thomas Segismont
  */
-public abstract class VertxMetricsBase<T extends MetricsOptionsBase> extends DummyVertxMetrics {
+public abstract class BatchingVertxMetrics<T extends BatchingReporterOptions> extends DummyVertxMetrics {
   protected final Vertx vertx;
   protected final T options;
   protected final Map<MetricsType, MetricSupplier> metricSuppliers;
@@ -63,7 +64,7 @@ public abstract class VertxMetricsBase<T extends MetricsOptionsBase> extends Dum
   private Reporter reporter;
   private Scheduler scheduler;
 
-  public VertxMetricsBase(Vertx vertx, T options) {
+  public BatchingVertxMetrics(Vertx vertx, T options) {
     this.vertx = vertx;
     this.options = options;
     String prefix = options.getPrefix();

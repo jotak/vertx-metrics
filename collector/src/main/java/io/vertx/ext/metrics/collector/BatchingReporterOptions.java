@@ -28,6 +28,16 @@ import io.vertx.core.json.JsonObject;
 public abstract class BatchingReporterOptions extends MetricsOptionsBase {
 
   /**
+   * The default metric name prefix (empty).
+   */
+  public static final String DEFAULT_PREFIX = "";
+
+  /**
+   * Default value for metric collection interval (in seconds) = 1.
+   */
+  public static final int DEFAULT_SCHEDULE = 1;
+
+  /**
    * Default value for the maximum number of metrics in a batch = 50.
    */
   public static final int DEFAULT_BATCH_SIZE = 50;
@@ -37,16 +47,22 @@ public abstract class BatchingReporterOptions extends MetricsOptionsBase {
    */
   public static final int DEFAULT_BATCH_DELAY = 1;
 
+  private String prefix;
+  private int schedule;
   private int batchSize;
   private int batchDelay;
 
   public BatchingReporterOptions() {
+    prefix = DEFAULT_PREFIX;
+    schedule = DEFAULT_SCHEDULE;
     batchSize = DEFAULT_BATCH_SIZE;
     batchDelay = DEFAULT_BATCH_DELAY;
   }
 
   public BatchingReporterOptions(BatchingReporterOptions other) {
     super(other);
+    prefix = other.prefix;
+    schedule = other.schedule;
     batchSize = other.batchSize;
     batchDelay = other.batchDelay;
   }
@@ -54,6 +70,37 @@ public abstract class BatchingReporterOptions extends MetricsOptionsBase {
   public BatchingReporterOptions(JsonObject json) {
     this();
     BatchingReporterOptionsConverter.fromJson(json, this);
+  }
+
+  /**
+   * @return the metric name prefix
+   */
+  public String getPrefix() {
+    return prefix;
+  }
+
+  /**
+   * Set the metric name prefix. Metric names are not prefixed by default. Prefixing metric names is required to
+   * distinguish data sent by different Vert.x instances.
+   */
+  public MetricsOptionsBase setPrefix(String prefix) {
+    this.prefix = prefix;
+    return this;
+  }
+
+  /**
+   * @return the metric collection interval (in seconds)
+   */
+  public int getSchedule() {
+    return schedule;
+  }
+
+  /**
+   * Set the metric collection interval (in seconds). Defaults to {@code 1}.
+   */
+  public MetricsOptionsBase setSchedule(int schedule) {
+    this.schedule = schedule;
+    return this;
   }
 
   /**
