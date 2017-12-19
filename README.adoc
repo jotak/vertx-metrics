@@ -1,0 +1,22 @@
+= vertx-metrics
+:source-language: java
+
+image::https://vertx.ci.cloudbees.com/buildStatus/icon?job=vert.x3-hawkular-metrics[link=https://vertx.ci.cloudbees.com/job/vert.x3-hawkular-metrics/]
+
+Vert.x-Metrics contains metrics collection and reporting to various target systems.
+
+The http://vertx.io/docs/vertx-core/java/index.html#_metrics_spi[Vert.x Metrics SPI] allows implementers to
+capture events from Vert.x in order to gather metrics.
+
+This project contains reporters that implement the Vert.x Metrics SPI.
+
+Please see the in-source Asciidoc documentation or the main documentation on the web-site for a full description
+of this component:
+
+* link:http://vertx.io/docs/vertx-metrics/java/[web-site docs]
+* link:src/main/asciidoc/java/index.adoc[in-source docs]
+
+== Reporters
+
+Reporter implementations are in the metric-reporters sub-project
+
