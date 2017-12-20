@@ -1,0 +1,18 @@
+= vertx-prometheus-metrics
+:source-language: java
+
+image::https://vertx.ci.cloudbees.com/buildStatus/icon?job=vert.x3-hawkular-metrics[link=https://vertx.ci.cloudbees.com/job/vert.x3-hawkular-metrics/]
+
+Vert.x-Prometheus-Metrics contains metrics collection and reporting for https://prometheus.io/[Prometheus].
+
+The http://vertx.io/docs/vertx-core/java/index.html#_metrics_spi[Vert.x Metrics SPI] allows implementers to
+capture events from Vert.x in order to gather metrics.
+
+This project is an implementation of the Vert.x Metrics SPI for Prometheus: metrics built from Vert.x events will be exposed
+on an HTTP endpoint using Prometheus format.
+
+Please see the in-source Asciidoc documentation or the main documentation on the web-site for a full description
+of this component:
+
+* link:http://vertx.io/docs/vertx-hawkular-metrics/java/[web-site docs]
+* link:src/main/asciidoc/java/index.adoc[in-source docs]

@@ -1,0 +1,59 @@
+= Cheatsheets
+
+[[VertxPrometheusOptions]]
+== VertxPrometheusOptions
+
+++++
+ Vert.x Prometheus monitoring configuration.
+ If no embedded server is used, you can bind an existing link with <br/>
+ Ex:<br/>
+ <code>myRouter.route("/metrics").handler(PrometheusVertxMetrics.createMetricsHandler());</code>
+++++
+'''
+
+[cols=">25%,^25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[disabledMetricsTypes]]`disabledMetricsTypes`|`Array of link:enums.html#MetricsType[MetricsType]`|-
+|[[enableRemoteLabelForClients]]`enableRemoteLabelForClients`|`Boolean`|
++++
+Set false to prevent generation of a label named "remote" on client-related metrics, used to group data points per remote.
+ This is relevant when the application makes client connections to a large number of different clients,
+ in order to reduce the number of related prometheus metrics created.<br/>
+ This option is set to <i>true</i> by default.
++++
+|[[enableRemoteLabelForServers]]`enableRemoteLabelForServers`|`Boolean`|
++++
+Set true to allow generation of a label named "remote" on server-related metrics, used to group data points per remote.
+ This is relevant when the number of clients connecting to the application servers is small and under control,
+ in order to reduce the number of related prometheus metrics created.<br/>
+ This option is set to <i>false</i> by default.
++++
+|[[enabled]]`enabled`|`Boolean`|
++++
+Set whether metrics will be enabled on the Vert.x instance. Metrics are not enabled by default.
++++
+|[[metricsBridgeAddress]]`metricsBridgeAddress`|`String`|-
+|[[metricsBridgeEnabled]]`metricsBridgeEnabled`|`Boolean`|-
+|[[separateRegistry]]`separateRegistry`|`Boolean`|-
+|[[serverOptions]]`serverOptions`|`link:dataobjects.html#VertxPrometheusServerOptions[VertxPrometheusServerOptions]`|-
+|===
+
+[[VertxPrometheusServerOptions]]
+== VertxPrometheusServerOptions
+
+++++
+ Vert.x Prometheus embedded server configuration.
+++++
+'''
+
+[cols=">25%,^25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[endpoint]]`endpoint`|`String`|-
+|[[host]]`host`|`String`|-
+|[[port]]`port`|`Number (int)`|-
+|===
+
