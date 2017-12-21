@@ -19,28 +19,28 @@ package io.vertx.ext.prometheus.impl;
 import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.Counter;
 import io.prometheus.client.Gauge;
-import io.prometheus.client.Histogram;
+import io.prometheus.client.Summary;
 import io.vertx.core.spi.metrics.PoolMetrics;
 
 /**
  * @author Joel Takvorian
  */
 class PrometheusPoolMetrics {
-  private final Histogram queueDelay;
+  private final Summary queueDelay;
   private final Gauge queueSize;
-  private final Histogram usage;
+  private final Summary usage;
   private final Gauge inUse;
   private final Gauge usageRatio;
   private final Counter completed;
 
   PrometheusPoolMetrics(CollectorRegistry registry) {
-    queueDelay = Histogram.build("vertx_pool_queue_delay", "Queue time for a resource")
+    queueDelay = Summary.build("vertx_pool_queue_delay", "Queue time for a resource")
       .labelNames("pool_type", "pool_name")
       .register(registry);
     queueSize = Gauge.build("vertx_pool_queue_size", "Number of elements waiting for a resource")
       .labelNames("pool_type", "pool_name")
       .register(registry);
-    usage = Histogram.build("vertx_pool_usage", "Time using a resource")
+    usage = Summary.build("vertx_pool_usage", "Time using a resource")
       .labelNames("pool_type", "pool_name")
       .register(registry);
     inUse = Gauge.build("vertx_pool_in_use", "Number of resources used")
@@ -58,7 +58,7 @@ class PrometheusPoolMetrics {
     return new Instance(poolType, poolName, maxPoolSize);
   }
 
-  class Instance implements PoolMetrics<Histogram.Timer> {
+  class Instance implements PoolMetrics<Summary.Timer> {
     private final String poolType;
     private final String poolName;
     private final int maxPoolSize;
@@ -70,19 +70,19 @@ class PrometheusPoolMetrics {
     }
 
     @Override
-    public Histogram.Timer submitted() {
+    public Summary.Timer submitted() {
       queueSize.labels(poolType, poolName).inc();
       return queueDelay.labels(poolType, poolName).startTimer();
     }
 
     @Override
-    public void rejected(Histogram.Timer submitted) {
+    public void rejected(Summary.Timer submitted) {
       queueSize.labels(poolType, poolName).dec();
       submitted.observeDuration();
     }
 
     @Override
-    public Histogram.Timer begin(Histogram.Timer submitted) {
+    public Summary.Timer begin(Summary.Timer submitted) {
       queueSize.labels(poolType, poolName).dec();
       submitted.observeDuration();
       inUse.labels(poolType, poolName).inc();
@@ -91,7 +91,7 @@ class PrometheusPoolMetrics {
     }
 
     @Override
-    public void end(Histogram.Timer begin, boolean succeeded) {
+    public void end(Summary.Timer begin, boolean succeeded) {
       inUse.labels(poolType, poolName).dec();
       checkRatio();
       begin.observeDuration();

@@ -18,7 +18,7 @@ package io.vertx.ext.prometheus.impl;
 
 import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.Counter;
-import io.prometheus.client.Histogram;
+import io.prometheus.client.Summary;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.core.net.impl.SocketAddressImpl;
 import io.vertx.core.spi.metrics.DatagramSocketMetrics;
@@ -28,17 +28,17 @@ import io.vertx.core.spi.metrics.DatagramSocketMetrics;
  */
 class PrometheusDatagramSocketMetrics implements DatagramSocketMetrics {
 
-  private final Histogram bytesReceived;
-  private final Histogram bytesSent;
+  private final Summary bytesReceived;
+  private final Summary bytesSent;
   private final Counter errorCount;
 
   private volatile String localAddress;
 
   PrometheusDatagramSocketMetrics(CollectorRegistry registry) {
-    bytesReceived = Histogram.build("vertx_datagram_bytes_received", "Total number of datagram bytes received")
+    bytesReceived = Summary.build("vertx_datagram_bytes_received", "Total number of datagram bytes received")
       .labelNames(Labels.LOCAL)
       .register(registry);
-    bytesSent = Histogram.build("vertx_datagram_bytes_sent", "Total number of datagram bytes sent")
+    bytesSent = Summary.build("vertx_datagram_bytes_sent", "Total number of datagram bytes sent")
       .register(registry);
     errorCount = Counter.build("vertx_datagram_errors", "Total number of datagram errors")
       .labelNames(Labels.CLASS)

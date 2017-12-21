@@ -93,11 +93,11 @@
  * |{@code vertx_net_client_connections{local=<local address>,remote=<remote address>}}
  * |Number of connections to the remote host currently opened.
  *
- * |Histogram
+ * |Summary
  * |{@code vertx_net_client_bytes_received{local=<local address>,remote=<remote address>}}
  * |Number of bytes received from the remote host.
  *
- * |Histogram
+ * |Summary
  * |{@code vertx_net_client_bytes_sent{local=<local address>,remote=<remote address>}}
  * |Number of bytes sent to the remote host.
  *
@@ -119,11 +119,11 @@
  * |{@code vertx_http_client_connections{local=<local address>,remote=<remote address>}}
  * |Number of connections to the remote host currently opened.
  *
- * |Histogram
+ * |Summary
  * |{@code vertx_http_client_bytes_received{local=<local address>,remote=<remote address>}}
  * |Number of bytes received from the remote host.
  *
- * |Histogram
+ * |Summary
  * |{@code vertx_http_client_bytes_sent{local=<local address>,remote=<remote address>}}
  * |Number of bytes sent to the remote host.
  *
@@ -139,7 +139,7 @@
  * |{@code vertx_http_client_request_count{local=<local address>,remote=<remote address>,method=<http method>}}
  * |Number of requests sent.
  *
- * |Histogram
+ * |Summary
  * |{@code vertx_http_client_response_time{local=<local address>,remote=<remote address>}}
  * |Response time.
  *
@@ -161,11 +161,11 @@
  * |Metric name
  * |Description
  *
- * |Histogram
+ * |Summary
  * |{@code vertx_datagram_bytes_received{local=<local>,remote=<remote>}}
  * |Total number of bytes received on the {@code <host>:<port>} listening address.
  *
- * |Histogram
+ * |Summary
  * |{@code vertx_datagram_bytes_sent{remote=<remote>}}
  * |Total number of bytes sent to the remote host.
  *
@@ -189,11 +189,11 @@
  * |{@code vertx_net_server_connections{local=<local address>}}
  * |Number of opened connections to the Net Server.
  *
- * |Histogram
+ * |Summary
  * |{@code vertx_net_server_bytes_received{local=<local address>}}
  * |Number of bytes received by the Net Server.
  *
- * |Histogram
+ * |Summary
  * |{@code vertx_net_server_bytes_sent{local=<local address>}}
  * |Number of bytes sent by the Net Server.
  *
@@ -217,11 +217,11 @@
  * |{@code vertx_http_server_connections{local=<local address>}}
  * |Number of opened connections to the HTTP Server.
  *
- * |Histogram
+ * |Summary
  * |{@code vertx_http_server_bytes_received{local=<local address>}}
  * |Number of bytes received by the HTTP Server.
  *
- * |Histogram
+ * |Summary
  * |{@code vertx_http_server_bytes_sent{local=<local address>}}
  * |Number of bytes sent by the HTTP Server.
  *
@@ -241,7 +241,7 @@
  * |{@code vertx_http_server_request_reset_count{local=<local address>}}
  * |Number of requests reset.
  *
- * |Histogram
+ * |Summary
  * |{@code vertx_http_server_processing_time{local=<local address>}}
  * |Request processing time.
  *
@@ -267,11 +267,11 @@
  * |{@code vertx_eventbus_errors{address=<address>,class=<class>}}
  * |Number of errors.
  *
- * |Histogram
+ * |Summary
  * |{@code vertx_eventbus_bytes_written{address=<address>}}
  * |Total number of bytes sent while sending messages to event bus cluster peers.
  *
- * |Histogram
+ * |Summary
  * |{@code vertx_eventbus_bytes_read{address=<address>}}
  * |Total number of bytes received while reading messages from event bus cluster peers.
  *
@@ -300,7 +300,7 @@
  * |{@code vertx_eventbus_reply_failures{address=<address>,failure=<failure name>}}
  * |Number of message reply failures.
  *
- * |Histogram
+ * |Summary
  * |{@code vertx_eventbus_processing_time{address=<address>}}
  * |Processing time for handlers listening to the {@code address}.
  *
@@ -323,7 +323,7 @@
  * |Metric name
  * |Description
  *
- * |Histogram
+ * |Summary
  * |{@code vertx_pool_queue_delay{pool_type=<type>,pool_name=<name>}}
  * |Time waiting for a resource (queue time).
  *
@@ -331,7 +331,7 @@
  * |{@code vertx_pool_queue_size{pool_type=<type>,pool_name=<name>}}
  * |Number of elements waiting for a resource.
  *
- * |Histogram
+ * |Summary
  * |{@code vertx_pool_usage{pool_type=<type>,pool_name=<name>}}
  * |Time using a resource (i.e. processing time for worker pools).
  *

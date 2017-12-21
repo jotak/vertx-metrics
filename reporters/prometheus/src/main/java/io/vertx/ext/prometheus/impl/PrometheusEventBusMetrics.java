@@ -18,7 +18,7 @@ package io.vertx.ext.prometheus.impl;
 import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.Counter;
 import io.prometheus.client.Gauge;
-import io.prometheus.client.Histogram;
+import io.prometheus.client.Summary;
 import io.vertx.core.eventbus.ReplyFailure;
 import io.vertx.core.spi.metrics.EventBusMetrics;
 
@@ -34,9 +34,9 @@ class PrometheusEventBusMetrics implements EventBusMetrics<PrometheusEventBusMet
   private final Counter delivered;
   private final Counter errorCount;
   private final Counter replyFailures;
-  private final Histogram processTime;
-  private final Histogram bytesRead;
-  private final Histogram bytesWritten;
+  private final Summary processTime;
+  private final Summary bytesRead;
+  private final Summary bytesWritten;
 
   PrometheusEventBusMetrics(CollectorRegistry registry) {
     handlers = Gauge.build("vertx_eventbus_handlers", "Number of event bus handlers in use")
@@ -63,13 +63,13 @@ class PrometheusEventBusMetrics implements EventBusMetrics<PrometheusEventBusMet
     replyFailures = Counter.build("vertx_eventbus_reply_failures", "Number of message reply failures")
       .labelNames(Labels.ADDRESS, "failure")
       .register(registry);
-    processTime = Histogram.build("vertx_eventbus_processing_time", "Processing time")
+    processTime = Summary.build("vertx_eventbus_processing_time", "Processing time")
       .labelNames(Labels.ADDRESS)
       .register(registry);
-    bytesRead = Histogram.build("vertx_eventbus_bytes_read", "Number of bytes received while reading messages from event bus cluster peers")
+    bytesRead = Summary.build("vertx_eventbus_bytes_read", "Number of bytes received while reading messages from event bus cluster peers")
       .labelNames(Labels.ADDRESS)
       .register(registry);
-    bytesWritten = Histogram.build("vertx_eventbus_bytes_written", "Number of bytes sent while sending messages to event bus cluster peers")
+    bytesWritten = Summary.build("vertx_eventbus_bytes_written", "Number of bytes sent while sending messages to event bus cluster peers")
       .labelNames(Labels.ADDRESS)
       .register(registry);
   }
@@ -148,7 +148,7 @@ class PrometheusEventBusMetrics implements EventBusMetrics<PrometheusEventBusMet
 
   public static class Handler {
     private final String address;
-    private Histogram.Timer timer;
+    private Summary.Timer timer;
 
     Handler(String address) {
       this.address = address;

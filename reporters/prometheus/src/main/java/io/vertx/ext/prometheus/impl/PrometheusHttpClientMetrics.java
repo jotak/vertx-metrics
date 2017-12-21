@@ -19,7 +19,7 @@ package io.vertx.ext.prometheus.impl;
 import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.Counter;
 import io.prometheus.client.Gauge;
-import io.prometheus.client.Histogram;
+import io.prometheus.client.Summary;
 import io.vertx.core.http.HttpClientRequest;
 import io.vertx.core.http.HttpClientResponse;
 import io.vertx.core.http.WebSocket;
@@ -33,7 +33,7 @@ import io.vertx.ext.prometheus.VertxPrometheusOptions;
 class PrometheusHttpClientMetrics extends PrometheusNetClientMetrics {
   private final Gauge requests;
   private final Counter requestCount;
-  private final Histogram responseTime;
+  private final Summary responseTime;
   private final Counter responseCount;
   private final Gauge wsConnections;
 
@@ -46,7 +46,7 @@ class PrometheusHttpClientMetrics extends PrometheusNetClientMetrics {
       requestCount = Counter.build("vertx_http_client_request_count", "Number of requests sent")
         .labelNames(Labels.LOCAL, Labels.REMOTE, Labels.METHOD)
         .register(registry);
-      responseTime = Histogram.build("vertx_http_client_reponse_time", "Response time")
+      responseTime = Summary.build("vertx_http_client_reponse_time", "Response time")
         .labelNames(Labels.LOCAL, Labels.REMOTE)
         .register(registry);
       responseCount = Counter.build("vertx_http_client_reponse_count", "Response count with codes")
@@ -62,7 +62,7 @@ class PrometheusHttpClientMetrics extends PrometheusNetClientMetrics {
       requestCount = Counter.build("vertx_http_client_request_count", "Number of requests sent")
         .labelNames(Labels.LOCAL, Labels.METHOD)
         .register(registry);
-      responseTime = Histogram.build("vertx_http_client_reponse_time", "Response time")
+      responseTime = Summary.build("vertx_http_client_reponse_time", "Response time")
         .labelNames(Labels.LOCAL)
         .register(registry);
       responseCount = Counter.build("vertx_http_client_reponse_count", "Response count with codes")
@@ -190,7 +190,7 @@ class PrometheusHttpClientMetrics extends PrometheusNetClientMetrics {
 
   public static class Handler {
     private final String address;
-    private Histogram.Timer timer;
+    private Summary.Timer timer;
 
     Handler(String address) {
       this.address = address;

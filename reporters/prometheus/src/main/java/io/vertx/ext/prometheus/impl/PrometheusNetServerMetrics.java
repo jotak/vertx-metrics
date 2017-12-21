@@ -18,7 +18,7 @@ package io.vertx.ext.prometheus.impl;
 import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.Counter;
 import io.prometheus.client.Gauge;
-import io.prometheus.client.Histogram;
+import io.prometheus.client.Summary;
 import io.vertx.core.net.SocketAddress;
 import io.vertx.core.net.impl.SocketAddressImpl;
 import io.vertx.core.spi.metrics.TCPMetrics;
@@ -29,8 +29,8 @@ import io.vertx.ext.prometheus.VertxPrometheusOptions;
  */
 class PrometheusNetServerMetrics {
   private final Gauge connections;
-  private final Histogram bytesReceived;
-  private final Histogram bytesSent;
+  private final Summary bytesReceived;
+  private final Summary bytesSent;
   private final Counter errorCount;
   final boolean hasRemoteLabel;
 
@@ -44,10 +44,10 @@ class PrometheusNetServerMetrics {
       connections = Gauge.build(prefix + "_server_connections", "Number of opened connections to the server")
         .labelNames(Labels.LOCAL, Labels.REMOTE)
         .register(registry);
-      bytesReceived = Histogram.build(prefix + "_server_bytes_received", "Number of bytes received by the server")
+      bytesReceived = Summary.build(prefix + "_server_bytes_received", "Number of bytes received by the server")
         .labelNames(Labels.LOCAL, Labels.REMOTE)
         .register(registry);
-      bytesSent = Histogram.build(prefix + "_server_bytes_sent", "Number of bytes sent by the server")
+      bytesSent = Summary.build(prefix + "_server_bytes_sent", "Number of bytes sent by the server")
         .labelNames(Labels.LOCAL, Labels.REMOTE)
         .register(registry);
       errorCount = Counter.build(prefix + "_server_errors", "Number of errors")
@@ -58,10 +58,10 @@ class PrometheusNetServerMetrics {
       connections = Gauge.build(prefix + "_server_connections", "Number of opened connections to the server")
         .labelNames(Labels.LOCAL)
         .register(registry);
-      bytesReceived = Histogram.build(prefix + "_server_bytes_received", "Number of bytes received by the server")
+      bytesReceived = Summary.build(prefix + "_server_bytes_received", "Number of bytes received by the server")
         .labelNames(Labels.LOCAL)
         .register(registry);
-      bytesSent = Histogram.build(prefix + "_server_bytes_sent", "Number of bytes sent by the server")
+      bytesSent = Summary.build(prefix + "_server_bytes_sent", "Number of bytes sent by the server")
         .labelNames(Labels.LOCAL)
         .register(registry);
       errorCount = Counter.build(prefix + "_server_errors", "Number of errors")

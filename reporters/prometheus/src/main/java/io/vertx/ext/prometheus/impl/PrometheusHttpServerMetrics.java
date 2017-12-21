@@ -18,7 +18,7 @@ package io.vertx.ext.prometheus.impl;
 import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.Counter;
 import io.prometheus.client.Gauge;
-import io.prometheus.client.Histogram;
+import io.prometheus.client.Summary;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
@@ -34,7 +34,7 @@ class PrometheusHttpServerMetrics extends PrometheusNetServerMetrics {
   private final Gauge requests;
   private final Counter requestCount;
   private final Counter requestResetCount;
-  private final Histogram processingTime;
+  private final Summary processingTime;
   private final Gauge wsConnections;
 
   PrometheusHttpServerMetrics(VertxPrometheusOptions options, CollectorRegistry registry) {
@@ -49,7 +49,7 @@ class PrometheusHttpServerMetrics extends PrometheusNetServerMetrics {
       requestResetCount = Counter.build("vertx_http_server_request_reset_count", "Number of requests reset")
         .labelNames(Labels.LOCAL, Labels.REMOTE)
         .register(registry);
-      processingTime = Histogram.build("vertx_http_server_reponse_time", "Request processing time")
+      processingTime = Summary.build("vertx_http_server_reponse_time", "Request processing time")
         .labelNames(Labels.LOCAL, Labels.REMOTE)
         .register(registry);
       wsConnections = Gauge.build("vertx_http_server_ws_connections", "Number of websockets currently opened")
@@ -65,7 +65,7 @@ class PrometheusHttpServerMetrics extends PrometheusNetServerMetrics {
       requestResetCount = Counter.build("vertx_http_server_request_reset_count", "Number of requests reset")
         .labelNames(Labels.LOCAL)
         .register(registry);
-      processingTime = Histogram.build("vertx_http_server_reponse_time", "Request processing time")
+      processingTime = Summary.build("vertx_http_server_reponse_time", "Request processing time")
         .labelNames(Labels.LOCAL)
         .register(registry);
       wsConnections = Gauge.build("vertx_http_server_ws_connections", "Number of websockets currently opened")
@@ -169,7 +169,7 @@ class PrometheusHttpServerMetrics extends PrometheusNetServerMetrics {
   public static class Handler {
     private final String address;
     private final String method;
-    private Histogram.Timer timer;
+    private Summary.Timer timer;
 
     Handler(String address, String method) {
       this.address = address;
