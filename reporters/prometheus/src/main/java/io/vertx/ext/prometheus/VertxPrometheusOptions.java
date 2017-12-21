@@ -37,7 +37,7 @@ public class VertxPrometheusOptions extends MetricsOptionsBase {
   private boolean enableRemoteLabelForServers;
 
   public VertxPrometheusOptions() {
-    enableRemoteLabelForServers = true;
+    enableRemoteLabelForClients = true;
   }
 
   public VertxPrometheusOptions(VertxPrometheusOptions other) {
